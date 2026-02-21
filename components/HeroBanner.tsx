@@ -9,7 +9,6 @@ export default function HeroBanner() {
     return (
         <section id="hero-banner" className="pb-10">
             <CommonWrapper>
-                {/* ===== "DO IT RIGHT" Tagline ===== */}
                 <div className="mt-5 mb-5 md:mt-8 md:mb-8">
                     <h1
                         className="uppercase w-full flex justify-between items-center text-[clamp(60px,15vw,223.5px)] font-['Rubik',sans-serif] font-bold leading-[100%] tracking-[0%]"
