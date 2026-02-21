@@ -5,10 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 import { FaTiktok } from "react-icons/fa";
 
+import CommonWrapper from "@/common/CommonWrapper";
+
 export default function Footer() {
     return (
         <footer id="footer" className="bg-[#232321] text-white pt-16">
-            <div className="max-w-[1280px] mx-auto px-6">
+            <CommonWrapper>
                 {/* ===== Footer Links Grid ===== */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-10 border-b border-[#333330]">
                     {/* Column 1: About Us */}
@@ -111,7 +113,7 @@ export default function Footer() {
                 <div className="text-center py-4 border-t border-[#333330]">
                     <p className="text-xs text-[#70706E]">© All rights reserved</p>
                 </div>
-            </div>
+            </CommonWrapper>
         </footer>
     );
 }

@@ -4,13 +4,15 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+import CommonWrapper from "@/common/CommonWrapper";
+
 export default function Newsletter() {
     // State to track email input value
     const [email, setEmail] = useState("");
 
     return (
         <section id="newsletter" className="py-16">
-            <div className="max-w-[1280px] mx-auto px-6">
+            <CommonWrapper>
                 <div className="bg-[#232321] rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-10">
                     {/* ===== Left Side: Text & Email Input ===== */}
                     <div className="flex-1 text-center md:text-left">
@@ -56,7 +58,7 @@ export default function Newsletter() {
                         </span>
                     </div>
                 </div>
-            </div>
+            </CommonWrapper>
         </section>
     );
 }

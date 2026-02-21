@@ -30,10 +30,12 @@ const reviews = [
     },
 ];
 
+import CommonWrapper from "@/common/CommonWrapper";
+
 export default function Reviews() {
     return (
         <section id="reviews" className="py-16">
-            <div className="max-w-[1280px] mx-auto px-6">
+            <CommonWrapper>
                 {/* ===== Section Header ===== */}
                 <h2
                     className="font-bold text-[#232321] uppercase mb-8"
@@ -84,7 +86,7 @@ export default function Reviews() {
                         </Card>
                     ))}
                 </div>
-            </div>
+            </CommonWrapper>
         </section>
     );
 }

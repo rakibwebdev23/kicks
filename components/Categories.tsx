@@ -19,10 +19,12 @@ const categories = [
     },
 ];
 
+import CommonWrapper from "@/common/CommonWrapper";
+
 export default function Categories() {
     return (
         <section id="categories" className="py-16">
-            <div className="max-w-[1280px] mx-auto px-6">
+            <CommonWrapper>
                 {/* ===== Section Header ===== */}
                 <div className="flex items-center justify-between mb-8">
                     <h2
@@ -80,7 +82,7 @@ export default function Categories() {
                         </div>
                     ))}
                 </div>
-            </div>
+            </CommonWrapper>
         </section>
     );
 }

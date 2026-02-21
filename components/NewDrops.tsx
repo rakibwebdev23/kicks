@@ -37,10 +37,12 @@ const newDropsProducts = [
     },
 ];
 
+import CommonWrapper from "@/common/CommonWrapper";
+
 export default function NewDrops() {
     return (
         <section id="new-drops" className="py-16">
-            <div className="max-w-[1280px] mx-auto px-6">
+            <CommonWrapper>
                 {/* ===== Section Header ===== */}
                 <div className="flex items-end justify-between mb-8">
                     {/* Left: Title */}
@@ -66,7 +68,7 @@ export default function NewDrops() {
                         <ProductCard key={product.id} {...product} />
                     ))}
                 </div>
-            </div>
+            </CommonWrapper>
         </section>
     );
 }

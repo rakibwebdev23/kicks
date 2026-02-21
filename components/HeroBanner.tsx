@@ -3,26 +3,32 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
+import CommonWrapper from "@/common/CommonWrapper";
+
 export default function HeroBanner() {
     return (
         <section id="hero-banner" className="pb-10">
-            <div className="max-w-[1280px] mx-auto px-6">
+            <CommonWrapper>
                 {/* ===== "DO IT RIGHT" Tagline ===== */}
-                <div className="border-[3px] border-[#4A69E2] rounded-2xl px-8 py-5 mt-5 mb-5">
+                <div className="mt-5 mb-5 md:mt-10 md:mb-10">
                     <h1
-                        className="font-black leading-none text-[#232321] uppercase"
-                        style={{ fontSize: "clamp(48px, 8vw, 100px)" }}
+                        className="font-bold leading-[100%] uppercase w-full flex justify-between items-center"
+                        style={{
+                            fontSize: "clamp(60px, 15vw, 223.5px)",
+                            fontFamily: "var(--font-heading)"
+                        }}
                     >
-                        DO IT <span className="text-[#4A69E2]">RIGHT</span>
+                        <span className="text-[#232321]">DO IT</span>
+                        <span className="text-[#4A69E2]">RIGHT</span>
                     </h1>
                 </div>
 
                 {/* ===== Featured Nike Air Max Section ===== */}
-                <div className="relative rounded-3xl overflow-hidden flex min-h-[400px]">
+                <div className="relative rounded-3xl overflow-hidden flex min-h-[400px] md:min-h-[750px]">
                     {/* Main hero image */}
-                    <div className="flex-1 relative min-h-[400px]">
+                    <div className="flex-1 relative min-h-[400px] md:min-h-[750px]">
                         <Image
-                            src="/images/hero-shoe.png"
+                            src="/images/banner.jpg"
                             alt="Nike Air Max featured shoe on orange background"
                             fill
                             className="object-cover"
@@ -59,7 +65,7 @@ export default function HeroBanner() {
                     <div className="hidden md:flex flex-col gap-2 p-2 w-[120px] bg-[#E7E7E3]">
                         <div className="rounded-xl overflow-hidden aspect-square relative bg-white">
                             <Image
-                                src="/images/hero-thumb-1.png"
+                                src="/images/banner-up1.jpg"
                                 alt="Nike Air Max thumbnail view 1"
                                 fill
                                 className="object-cover"
@@ -67,7 +73,7 @@ export default function HeroBanner() {
                         </div>
                         <div className="rounded-xl overflow-hidden aspect-square relative bg-white">
                             <Image
-                                src="/images/hero-thumb-2.png"
+                                src="/images/banner-up2.jpg"
                                 alt="Nike Air Max thumbnail view 2"
                                 fill
                                 className="object-cover"
@@ -75,7 +81,7 @@ export default function HeroBanner() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </CommonWrapper>
         </section>
     );
 }
