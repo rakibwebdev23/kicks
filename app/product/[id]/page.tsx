@@ -13,8 +13,6 @@ import { Heart, ChevronLeft, ChevronRight } from "lucide-react";
 
 import CommonWrapper from "@/common/CommonWrapper";
 
-// This is the dynamic product detail page.
-// The [id] in the folder name means it will catch URLs like /product/1, /product/2, etc.
 export default function ProductDetailPage({
     params,
 }: {
@@ -42,7 +40,7 @@ export default function ProductDetailPage({
     const relatedProducts = getRelatedProducts(product.id, product.category);
 
     return (
-        <div className="bg-[#FAFAFA] min-h-screen">
+        <div className="bg-white min-h-screen">
             <Navbar />
 
             <main className="py-6 md:py-10">
@@ -58,27 +56,27 @@ export default function ProductDetailPage({
                         <div className="flex flex-col pt-0 lg:pt-4">
                             {/* New Release Badge (if applicable) */}
                             {product.isNew && (
-                                <span className="bg-[#4A69E2] text-white text-[11px] font-bold px-3.5 py-1.5 rounded-lg uppercase w-max mb-6 tracking-wider">
+                                <span className="bg-kicks-blue text-white text-[11px] font-bold px-3.5 py-1.5 rounded-lg uppercase w-max mb-6 tracking-wider">
                                     New Release
                                 </span>
                             )}
-
-                            <h1 className="text-[28px] md:text-[36px] font-extrabold text-[#232321] leading-[1.1] mb-2 uppercase tracking-tight">
+               
+                            <h1 className="text-[28px] md:text-[36px] font-extrabold text-kicks-dark leading-[1.1] mb-2 uppercase tracking-tight">
                                 {product.name}
                             </h1>
 
-                            <p className="text-xl md:text-2xl font-bold text-[#4A69E2] mb-10">
+                            <p className="text-xl md:text-2xl font-bold text-kicks-blue mb-10">
                                 ${product.price}.00
                             </p>
 
                             {/* Color Picker */}
                             <div className="mb-8">
-                                <p className="text-sm font-bold text-[#232321] uppercase mb-4 tracking-wide">Color</p>
+                                <p className="text-sm font-bold text-kicks-dark uppercase mb-4 tracking-wide">Color</p>
                                 <div className="flex gap-3">
                                     {product.colors.map((color, index) => (
                                         <button
                                             key={index}
-                                            className={`size-10 rounded-full border-[3px] transition-all p-1 outline-none ${index === 0 ? "border-[#232321]" : "border-transparent hover:border-[#E7E7E3]"
+                                            className={`size-10 rounded-full border-[3px] transition-all p-1 outline-none ${index === 0 ? "border-kicks-dark" : "border-transparent hover:border-kicks-light"
                                                 }`}
                                         >
                                             <div className="w-full h-full rounded-full" style={{ backgroundColor: color }} />
@@ -90,16 +88,16 @@ export default function ProductDetailPage({
                             {/* Size Picker */}
                             <div className="mb-10">
                                 <div className="flex items-center justify-between mb-4">
-                                    <p className="text-sm font-bold text-[#232321] uppercase tracking-wide">Size</p>
-                                    <button className="text-[11px] font-bold text-[#232321] uppercase underline underline-offset-4 hover:text-[#4A69E2] transition-colors">Size Chart</button>
+                                    <p className="text-sm font-bold text-kicks-dark uppercase tracking-wide">Size</p>
+                                    <button className="text-[11px] font-bold text-kicks-dark uppercase underline underline-offset-4 hover:text-kicks-blue transition-colors">Size Chart</button>
                                 </div>
                                 <div className="grid grid-cols-5 sm:grid-cols-6 lg:grid-cols-8 gap-2">
                                     {product.sizes.map((size, index) => (
                                         <button
                                             key={size}
                                             className={`h-11 rounded-xl text-sm font-bold transition-all border outline-none ${index === 0
-                                                ? "bg-[#232321] text-white border-[#232321]"
-                                                : "bg-white text-[#232321] border-[#E7E7E3] hover:border-[#232321]"
+                                                ? "bg-kicks-dark text-white border-kicks-dark"
+                                                : "bg-white text-kicks-dark border-kicks-light hover:border-kicks-dark"
                                                 }`}
                                         >
                                             {size}
@@ -110,26 +108,26 @@ export default function ProductDetailPage({
 
                             {/* Action Buttons */}
                             <div className="flex gap-3 mb-4">
-                                <Button className="flex-1 bg-[#232321] hover:bg-[#232321]/90 text-white h-14 font-bold uppercase tracking-wider rounded-xl text-sm">
+                                <Button className="flex-1 bg-kicks-dark hover:bg-kicks-dark/90 text-white h-14 font-bold uppercase tracking-wider rounded-xl text-sm">
                                     Add to Cart
                                 </Button>
-                                <Button variant="outline" size="icon" className="size-14 rounded-xl border-2 border-[#232321] bg-transparent hover:bg-[#232321] hover:text-white transition-all">
+                                <Button variant="outline" size="icon" className="size-14 rounded-xl border-2 border-kicks-dark bg-transparent hover:bg-kicks-dark hover:text-white transition-all">
                                     <Heart className="size-5" />
                                 </Button>
                             </div>
 
-                            <Button className="w-full bg-[#4A69E2] hover:bg-[#3a56c4] text-white h-14 font-bold uppercase tracking-wider rounded-xl mb-12 text-sm">
+                            <Button className="w-full bg-kicks-blue hover:bg-[#3a56c4] text-white h-14 font-bold uppercase tracking-wider rounded-xl mb-12 text-sm">
                                 Buy It Now
                             </Button>
 
                             {/* About Product */}
-                            <div className="border-t border-[#E7E7E3] pt-8">
-                                <p className="text-sm font-bold text-[#232321] uppercase mb-2 tracking-wide">About the Product</p>
-                                <p className="text-[14px] font-medium text-[#70706E] mb-6">{product.description}</p>
+                            <div className="border-t border-kicks-light pt-8">
+                                <p className="text-sm font-bold text-kicks-dark uppercase mb-2 tracking-wide">About the Product</p>
+                                <p className="text-[14px] font-medium text-kicks-gray mb-6">{product.description}</p>
                                 <ul className="list-none space-y-4">
                                     {product.details.map((detail, index) => (
-                                        <li key={index} className="text-[13px] text-[#70706E] leading-relaxed flex items-start gap-2">
-                                            <span className="mt-1.5 size-1.5 rounded-full bg-[#70706E] shrink-0" />
+                                        <li key={index} className="text-[13px] text-kicks-gray leading-relaxed flex items-start gap-2">
+                                            <span className="mt-1.5 size-1.5 rounded-full bg-kicks-gray shrink-0" />
                                             {detail}
                                         </li>
                                     ))}
@@ -141,14 +139,14 @@ export default function ProductDetailPage({
                     {/* ===== "YOU MAY ALSO LIKE" SECTION ===== */}
                     <div className="mb-20">
                         <div className="flex items-center justify-between mb-8">
-                            <h2 className="text-2xl font-extrabold text-[#232321] uppercase">
+                            <h2 className="text-2xl font-extrabold text-kicks-dark uppercase">
                                 You may also like
                             </h2>
                             <div className="flex gap-2">
-                                <Button variant="outline" size="icon" className="size-10 border-[#232321] hover:bg-[#232321] hover:text-white">
+                                <Button variant="outline" size="icon" className="size-10 border-kicks-dark hover:bg-kicks-dark hover:text-white">
                                     <ChevronLeft className="size-5" />
                                 </Button>
-                                <Button variant="outline" size="icon" className="size-10 bg-[#232321] text-white hover:bg-[#4A69E2]">
+                                <Button variant="outline" size="icon" className="size-10 bg-kicks-dark text-white hover:bg-kicks-blue">
                                     <ChevronRight className="size-5" />
                                 </Button>
                             </div>
