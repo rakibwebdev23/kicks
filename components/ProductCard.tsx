@@ -4,10 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-    Card,
-    CardContent,
-} from "@/components/ui/card";
 
 // ===== TYPES =====
 // Define the shape of data each ProductCard expects
@@ -27,43 +23,49 @@ export default function ProductCard({
     isNew = false,
 }: ProductCardProps) {
     return (
-        // Using Shadcn Card component for the product container
-        <Card className="overflow-hidden border-0 shadow-none hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer bg-white rounded-2xl">
-            {/* ===== Product Image ===== */}
-            <Link href={`/product/${id}`}>
-                <div className="relative aspect-square bg-[#F5F5F5]">
-                    <Image
-                        src={image}
-                        alt={name}
-                        fill
-                        className="object-cover p-3"
-                    />
-                    {/* "New" badge using Shadcn Badge */}
-                    {isNew && (
-                        <Badge className="absolute top-3 left-3 bg-[#4A69E2] text-white text-[11px] font-bold px-2.5 py-1 rounded-md hover:bg-[#4A69E2] border-0 uppercase">
-                            New
-                        </Badge>
-                    )}
+        <div className="group flex flex-col h-full">
+            {/* ===== Product Image Section ===== */}
+            <Link href={`/product/${id}`} className="block">
+                <div className="w-full aspect-[318/350] p-2 bg-[#FAFAFA] rounded-[28px]">
+                    <div className="relative w-full h-full bg-[#ECEEF0] rounded-[24px] overflow-hidden flex items-center justify-center">
+                        <div className="relative w-full h-full">
+                            <Image
+                                src={image}
+                                alt={name}
+                                fill
+                                className="object-contain group-hover:scale-110 transition-transform duration-500"
+                                sizes="(max-width: 768px) 50vw, 25vw"
+                                priority={id <= 2}
+                            />
+                        </div>
+                        {/* "New" badge */}
+                        {isNew && (
+                            <span className="absolute top-0 left-0 w-[58px] h-[38px] bg-[#4A69E2] text-white text-[12px] font-semibold flex items-center justify-center p-0  hover:bg-[#4A69E2] border-0 uppercase font-['Rubik',sans-serif] leading-[100%] rounded-br-[24px]">
+                                New
+                            </span>
+                        )}
+                    </div>
                 </div>
             </Link>
 
-            {/* ===== Product Info ===== */}
-            <CardContent className="p-4">
-                <h3 className="text-[13px] font-bold text-[#232321] uppercase leading-tight mb-3">
+            {/* ===== Product Info Section ===== */}
+            <div className="mt-4 flex flex-col flex-grow gap-4">
+                <h3 className="line-clamp-2 text-[16px] md:text-[24px] font-semibold text-[#232321] uppercase leading-[120%] md:leading-[100%] font-['Rubik',sans-serif]">
                     {name}
                 </h3>
 
-                {/* View Product Button - using Link for navigation */}
-                <Button asChild className="w-full bg-[#232321] hover:bg-[#4A69E2] text-white rounded-lg px-3.5 py-5 text-xs font-semibold flex items-center justify-between transition-colors">
+                {/* View Product Button */}
+                <Button asChild className="w-full h-[48px] bg-[#232321] hover:bg-[#333] text-white rounded-[8px] flex items-center justify-center gap-[4px] transition-colors border-0">
                     <Link href={`/product/${id}`}>
-                        <span>VIEW PRODUCT -</span>
-                        {/* Price badge */}
-                        <span className="bg-[#FFA52F] text-[#232321] px-2.5 py-1 rounded-md font-bold text-xs">
+                        <span className="text-[14px] font-medium uppercase font-['Rubik',sans-serif] leading-[100%] tracking-[0.25px]">
+                            VIEW PRODUCT -
+                        </span>
+                        <span className="text-[14px] font-medium uppercase font-['Rubik',sans-serif] leading-[100%] tracking-[0.25px] text-[#FFA52F]">
                             ${price}
                         </span>
                     </Link>
                 </Button>
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     );
 }

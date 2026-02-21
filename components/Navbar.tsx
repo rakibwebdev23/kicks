@@ -2,123 +2,136 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Search, User, Menu, X } from "lucide-react";
-import { HiOutlineShoppingBag } from "react-icons/hi2";
+import Image from "next/image";
+import { Search, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 import CommonWrapper from "@/common/CommonWrapper";
+import { FaUser } from "react-icons/fa";
 
 export default function Navbar() {
-    // State to toggle mobile menu open/close
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     return (
-        <CommonWrapper>
-        <nav
-            id="navbar"
-            className="sticky top-0 z-50 bg-[#FAFAFA] border-b border-[#E7E7E3] shadow shadow-md rounded-lg mt-6"
-        >
-            
-                <div className="flex items-center justify-between h-[70px] px-6 ">
-                    {/* ===== LEFT: Nav Links (Desktop only) ===== */}
-                    <div className="hidden md:flex items-center gap-6">
+        <div className="fixed top-0 left-0 w-full z-50 pt-8">
+            <CommonWrapper>
+                <nav
+                    id="navbar"
+                    className="bg-white rounded-[24px] px-4 py-4 md:rounded-3xl md:px-8 md:py-8"
+                >
+                    <div className="relative flex items-center justify-between">
+                        {/* ===== LEFT SECTION ===== */}
+                        <div className="flex items-center">
+                            {/* Mobile: Hamburger menu (LEFT side) */}
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                aria-label="Toggle menu"
+                                className="md:hidden rounded-full hover:bg-gray-100"
+                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            >
+                                {isMobileMenuOpen ? (
+                                    <X className="size-6 text-[#232321]" />
+                                ) : (
+                                    <Menu className="size-6 text-[#232321]" />
+                                )}
+                            </Button>
+
+                            {/* Desktop: Nav Links */}
+                            <div className="hidden md:flex items-center gap-[40px]">
+                                <Link
+                                    href="/"
+                                    className="text-base font-semibold text-[#232321] hover:text-[#4A69E2] transition-colors font-['Rubik',sans-serif] leading-[100%] tracking-[0%]"
+                                >
+                                    New Drops 🔥
+                                </Link>
+                                <Link
+                                    href="/"
+                                    className="text-base font-semibold text-[#232321] hover:text-[#4A69E2] transition-colors font-['Rubik',sans-serif] leading-[100%] tracking-[0%] flex items-center gap-1"
+                                >
+                                    Men
+                                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 1L5 5L9 1" stroke="#232321" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </Link>
+                                <Link
+                                    href="/"
+                                    className="text-base font-semibold text-[#232321] hover:text-[#4A69E2] transition-colors font-['Rubik',sans-serif] leading-[100%] tracking-[0%] flex items-center gap-1"
+                                >
+                                    Women
+                                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 1L5 5L9 1" stroke="#232321" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* ===== CENTER: Logo ===== */}
                         <Link
                             href="/"
-                            className="text-sm font-semibold text-[#232321] hover:text-[#4A69E2] transition-colors"
+                            className="absolute left-1/2 -translate-x-1/2"
                         >
-                            New Drops 🔥
+                            <Image
+                                src="/images/logo.png"
+                                alt="KICKS logo"
+                                width={128}
+                                height={32}
+                                className="w-[80px] h-[20px] md:w-[128px] md:h-[32px]"
+                                priority
+                            />
                         </Link>
-                        <Link
-                            href="/"
-                            className="text-sm font-medium text-[#232321] hover:text-[#4A69E2] transition-colors"
-                        >
-                            Men
-                        </Link>
-                        <Link
-                            href="/"
-                            className="text-sm font-medium text-[#232321] hover:text-[#4A69E2] transition-colors"
-                        >
-                            Women
-                        </Link>
+
+                        {/* ===== RIGHT: Action Icons ===== */}
+                        <div className="flex items-center gap-[40px]">
+                            {/* Search - Desktop only */}
+                            <Button variant="ghost" size="icon" aria-label="Search" className="hidden md:flex rounded-full hover:bg-gray-100">
+                                <Search className="size-5 text-[#232321]" />
+                            </Button>
+
+                            {/* User Account */}
+                            <Button variant="ghost" size="icon" aria-label="User account" className="rounded-full hover:bg-gray-100">
+                                <FaUser className="size-5 text-[#232321]" />
+                            </Button>
+
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                aria-label="Shopping cart"
+                                className="relative rounded-full hover:bg-gray-100"
+                            >
+                                <Badge className="w-[32px] h-[32px] p-[10px] gap-[10px] flex items-center justify-center bg-[#FFA52F] text-[#232321] text-[16px] font-bold border-0 hover:bg-[#FFA52F] rounded-full">
+                                    0
+                                </Badge>
+                            </Button>
+                        </div>
                     </div>
 
-                    {/* ===== CENTER: Logo ===== */}
-                    <Link
-                        href="/"
-                        className="text-[28px] font-extrabold text-[#232321] tracking-[2px] hover:text-[#4A69E2] transition-colors"
-                    >
-                        KICKS
-                    </Link>
-
-                    {/* ===== RIGHT: Action Icons ===== */}
-                    <div className="flex items-center gap-2">
-                        {/* Search Button - using Shadcn ghost button */}
-                        <Button variant="ghost" size="icon" aria-label="Search">
-                            <Search className="size-5" />
-                        </Button>
-
-                        {/* User Account Button */}
-                        <Button variant="ghost" size="icon" aria-label="User account">
-                            <User className="size-5" />
-                        </Button>
-
-                        {/* Cart Button with orange badge count */}
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            aria-label="Shopping cart"
-                            className="relative"
-                        >
-                            <HiOutlineShoppingBag className="size-5" />
-                            {/* Shadcn Badge for cart count */}
-                            <Badge className="absolute -top-1 -right-1 size-[18px] p-0 flex items-center justify-center bg-[#FFA52F] text-[#232321] text-[10px] font-bold border-0 hover:bg-[#FFA52F]">
-                                0
-                            </Badge>
-                        </Button>
-
-                        {/* Mobile Hamburger Menu Button (shown only on small screens) */}
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            aria-label="Toggle menu"
-                            className="md:hidden"
-                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        >
-                            {isMobileMenuOpen ? (
-                                <X className="size-6" />
-                            ) : (
-                                <Menu className="size-6" />
-                            )}
-                        </Button>
-                    </div>
-                </div>
-
-                {/* ===== MOBILE MENU DROPDOWN ===== */}
-                {isMobileMenuOpen && (
-                    <div className="bg-[#FAFAFA] border-t border-[#E7E7E3] px-6 pb-4 md:hidden">
-                        <Link
-                            href="/"
-                            className="block py-3 text-base font-semibold text-[#232321] border-b border-[#E7E7E3]"
-                        >
-                            New Drops 🔥
-                        </Link>
-                        <Link
-                            href="/"
-                            className="block py-3 text-base font-medium text-[#232321] border-b border-[#E7E7E3]"
-                        >
-                            Men
-                        </Link>
-                        <Link
-                            href="/"
-                            className="block py-3 text-base font-medium text-[#232321]"
-                        >
-                            Women
-                        </Link>
-                    </div>
-                )}
-            
-        </nav>
-        </CommonWrapper>
+                    {/* ===== MOBILE MENU DROPDOWN ===== */}
+                    {isMobileMenuOpen && (
+                        <div className="border-t border-[#f0f0ee] mt-4 pt-2 pb-2 md:hidden">
+                            <Link
+                                href="/"
+                                className="block py-3 text-base font-semibold text-[#232321] border-b border-[#f0f0ee]"
+                            >
+                                New Drops 🔥
+                            </Link>
+                            <Link
+                                href="/"
+                                className="block py-3 text-base font-medium text-[#232321] border-b border-[#f0f0ee]"
+                            >
+                                Men
+                            </Link>
+                            <Link
+                                href="/"
+                                className="block py-3 text-base font-medium text-[#232321]"
+                            >
+                                Women
+                            </Link>
+                        </div>
+                    )}
+                </nav>
+            </CommonWrapper>
+        </div>
     );
 }
