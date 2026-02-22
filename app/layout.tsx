@@ -1,3 +1,5 @@
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -15,7 +17,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Google Fonts: Rubik for the brand typography */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -27,7 +28,11 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
-    </html>
+      <body>
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
+    </html >
   );
 }

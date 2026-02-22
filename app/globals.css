@@ -3,7 +3,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ===== CUSTOM THEME ===== */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -33,7 +32,6 @@
   --foreground: #232321;
 }
 
-/* ===== BASE STYLES ===== */
 @layer base {
   * {
     margin: 0;
@@ -63,14 +61,12 @@
   }
 }
 
-/* ===== UTILITY CLASSES ===== */
 .container-kicks {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
-/* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -84,7 +80,6 @@
   border-radius: 10px;
 }
 
-/* ===== ANIMATIONS ===== */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -133,7 +128,6 @@
   animation: scaleIn 0.4s ease-out forwards;
 }
 
-/* Staggered animation delays */
 .delay-100 {
   animation-delay: 0.1s;
 }

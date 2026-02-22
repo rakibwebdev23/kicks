@@ -21,9 +21,7 @@ export default function Navbar() {
                     className="bg-white rounded-[24px] px-4 py-4 md:rounded-3xl md:px-8 md:py-8"
                 >
                     <div className="relative flex items-center justify-between">
-                        {/* ===== LEFT SECTION ===== */}
                         <div className="flex items-center">
-                            {/* Mobile: Hamburger menu (LEFT side) */}
                             <Button
                                 variant="ghost"
                                 size="icon"
@@ -38,7 +36,6 @@ export default function Navbar() {
                                 )}
                             </Button>
 
-                            {/* Desktop: Nav Links */}
                             <div className="hidden md:flex items-center gap-[40px]">
                                 <Link
                                     href="/"
@@ -67,7 +64,6 @@ export default function Navbar() {
                             </div>
                         </div>
 
-                        {/* ===== CENTER: Logo ===== */}
                         <Link
                             href="/"
                             className="absolute left-1/2 -translate-x-1/2"
@@ -82,32 +78,30 @@ export default function Navbar() {
                             />
                         </Link>
 
-                        {/* ===== RIGHT: Action Icons ===== */}
-                        <div className="flex items-center gap-[40px]">
-                            {/* Search - Desktop only */}
+                        <div className="flex items-center gap-[16px] md:gap-[40px]">
                             <Button variant="ghost" size="icon" aria-label="Search" className="hidden md:flex rounded-full hover:bg-gray-100">
                                 <Search className="size-5 text-[#232321]" />
                             </Button>
 
-                            {/* User Account */}
                             <Button variant="ghost" size="icon" aria-label="User account" className="rounded-full hover:bg-gray-100">
                                 <FaUser className="size-5 text-[#232321]" />
                             </Button>
 
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                aria-label="Shopping cart"
-                                className="relative rounded-full hover:bg-gray-100"
-                            >
-                                <Badge className="w-[32px] h-[32px] p-[10px] gap-[10px] flex items-center justify-center bg-[#FFA52F] text-[#232321] text-[16px] font-bold border-0 hover:bg-[#FFA52F] rounded-full">
-                                    0
-                                </Badge>
-                            </Button>
+                            <Link href="/cart">
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    aria-label="Shopping cart"
+                                    className="relative rounded-full hover:bg-gray-100"
+                                >
+                                    <Badge className="w-[32px] h-[32px] p-[10px] gap-[10px] flex items-center justify-center bg-[#FFA52F] text-[#232321] text-[16px] font-bold border-0 hover:bg-[#FFA52F] rounded-full">
+                                        0
+                                    </Badge>
+                                </Button>
+                            </Link>
                         </div>
                     </div>
 
-                    {/* ===== MOBILE MENU DROPDOWN ===== */}
                     {isMobileMenuOpen && (
                         <div className="border-t border-[#f0f0ee] mt-4 pt-2 pb-2 md:hidden">
                             <Link

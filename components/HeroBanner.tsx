@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 
 import CommonWrapper from "@/common/CommonWrapper";
+import { Button } from "./ui/button";
 
 export default function HeroBanner() {
     return (
@@ -18,9 +18,7 @@ export default function HeroBanner() {
                     </h1>
                 </div>
 
-                {/* ===== Featured Nike Air Max Section ===== */}
-                <div className="relative rounded-[64px] overflow-hidden min-h-[382px] lg:min-h-[750px]">
-                    {/* Main hero image */}
+                <div className="relative w-full rounded-[24px] md:rounded-[64px] overflow-hidden h-[382px] md:h-auto md:min-h-[750px]">
                     <Image
                         src="/images/banner.jpg"
                         alt="Nike Air Max featured shoe on orange background"
@@ -29,35 +27,40 @@ export default function HeroBanner() {
                         priority
                     />
 
-                    {/* Rotated "Nike product of the year" vertical label */}
-                    <div className="absolute left-0 top-[80px] z-10">
-                        <div
-                            className="bg-[#232321] text-white text-[10px] md:text-base font-semibold tracking-[0.15em] uppercase p-6 gap-[10px] whitespace-nowrap rounded-tl-[16px] rounded-bl-[16px] [writing-mode:vertical-lr] rotate-180"
-                        >
+                    <div className="md:hidden absolute left-0 top-[23px] z-10 origin-top-left -rotate-90 translate-y-[157px]">
+                        <div className="w-[157px] h-[30px] bg-[#232321] rounded-b-[8px] flex items-center justify-center p-[8px]">
+                            <span className="text-[white] font-['Rubik',sans-serif] font-[600] text-[12px] leading-[100%] whitespace-nowrap">
+                                Nike product of the year
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="hidden md:block absolute left-0 top-[80px] z-10">
+                        <div className="bg-[#232321] text-white text-base font-semibold tracking-[0.15em] p-6 gap-[10px] whitespace-nowrap rounded-tl-[16px] rounded-bl-[16px] [writing-mode:vertical-lr] rotate-180">
                             Nike product of the year
                         </div>
                     </div>
 
-                    {/* Bottom-left text overlay */}
-                    <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 text-white z-10">
-                        <h2
-                            className="text-[24px] md:text-[74px] font-semibold leading-[100%] tracking-[0%] uppercase mb-2 font-['Rubik',sans-serif]"
-                        >
+                    <div className="absolute bottom-[24px] left-[30px] md:bottom-10 md:left-10 text-white z-10 md:pr-0">
+                        <h2 className="text-[24px] md:text-[74px] font-[600] md:font-semibold leading-[100%] md:tracking-[0%] uppercase mb-[8px] md:mb-2 font-['Rubik',sans-serif]">
                             NIKE AIR MAX
                         </h2>
-                        <p className="text-[14px] md:text-[24px] font-semibold opacity-90 max-w-[473px] mb-5 leading-[100%] tracking-[0%] font-['Open_Sans',sans-serif]">
+                        <p className="text-[14px] md:text-[24px] font-[600] md:font-semibold opacity-90 max-w-[200px] md:max-w-[473px] mb-[20px] md:mb-5 leading-[100%] md:tracking-[0%] font-['Open_Sans',sans-serif] text-[#E7E7E3] md:text-white">
                             Nike introducing the new air max for
                             everyone&apos;s comfort
                         </p>
 
-                        <Button className="bg-[#4A69E2] hover:bg-[#3a56c4] text-white rounded-lg px-7 py-3 text-sm font-medium tracking-wide h-auto transition-all duration-200 hover:scale-[1.02]">
+                        <Button className="md:hidden bg-[#4A69E2] border-[0px] hover:bg-[#3a56c4] text-white rounded-[8px] px-[24px] py-[12px] text-[14px] font-[500] font-['Inter',sans-serif] leading-[100%] tracking-[0.25px] h-auto uppercase cursor-pointer">
+                            SHOP NOW
+                        </Button>
+
+                        <Button className="hidden md:inline-flex bg-[#4A69E2] border-[0px] hover:bg-[#3a56c4] text-white rounded-lg px-8 py-3 text-sm font-semibold h-auto uppercase tracking-wide cursor-pointer">
                             SHOP NOW
                         </Button>
                     </div>
 
-                    {/* Right side thumbnail images - overlaid on the banner */}
-                    <div className="absolute top-[230px] left-[278px] w-[64px] h-[136px] md:top-[382px] md:left-[1128px] md:w-[160px] md:h-[336px] flex flex-col gap-[8px] md:gap-[16px] z-10">
-                        <div className="w-[64px] h-[64px] md:w-[160px] md:h-[160px] rounded-[8px] md:rounded-[32px] overflow-hidden relative border-[1px] border-[#E7E7E3] md:border-[3px] shadow-lg">
+                    <div className="absolute bottom-[24px] right-[16px] md:top-[382px] md:left-[1128px] md:bottom-auto md:right-auto flex flex-col gap-[8px] md:gap-[16px] z-10">
+                        <div className="w-[64px] h-[64px] md:w-[160px] md:h-[160px] rounded-[8px] md:rounded-[32px] overflow-hidden relative border-[1px] border-white md:border-[3px] shadow-lg">
                             <Image
                                 src="/images/banner-up1.jpg"
                                 alt="Nike Air Max thumbnail view 1"
@@ -65,7 +68,7 @@ export default function HeroBanner() {
                                 className="object-cover"
                             />
                         </div>
-                        <div className="w-[64px] h-[64px] md:w-[160px] md:h-[160px] rounded-[8px] md:rounded-[32px] overflow-hidden relative border-[1px] border-[#E7E7E3] md:border-[3px] shadow-lg">
+                        <div className="w-[64px] h-[64px] md:w-[160px] md:h-[160px] rounded-[8px] md:rounded-[32px] overflow-hidden relative border-[1px] md:border-[#E7E7E3] border-white md:border-[3px] shadow-lg">
                             <Image
                                 src="/images/banner-up2.jpg"
                                 alt="Nike Air Max thumbnail view 2"

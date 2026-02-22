@@ -1,26 +1,18 @@
-// ===== SHARED PRODUCT DATA =====
-// This file contains all product data used across the website.
-// Both the landing page and product detail page use this data.
-// In a real app, this would come from a database or API.
 
-// ----- Type Definitions -----
-// These types describe the shape of our product data
 export type Product = {
     id: number;
     name: string;
     price: number;
-    image: string; // Main product image (used in cards)
-    images: string[]; // All product images (used in gallery)
-    category: string; // e.g. "running", "lifestyle", "basketball"
-    isNew: boolean; // Show "New" badge or not
-    colors: string[]; // Available color hex codes
-    sizes: number[]; // Available shoe sizes
-    description: string; // Short product description
-    details: string[]; // Bullet point details
+    image: string;
+    images: string[];
+    category: string;
+    isNew: boolean;
+    colors: string[];
+    sizes: number[];
+    description: string;
+    details: string[];
 };
 
-// ----- All Products -----
-// This is our "database" of products
 export const products: Product[] = [
     {
         id: 1,
@@ -29,10 +21,9 @@ export const products: Product[] = [
         image: "/images/shoe-1.png",
         images: [
             "/images/shoe-1.png",
-            "/images/shoe-detail-1.png",
-            "/images/shoe-detail-2.png",
-            "/images/shoe-detail-3.png",
-            "/images/shoe-detail-4.png",
+            "/images/shoe-details-2.png",
+            "/images/shoe-details-3.png",
+            "/images/shoe-details-4.png",
         ],
         category: "running",
         isNew: true,
@@ -52,10 +43,9 @@ export const products: Product[] = [
         image: "/images/shoe-2.png",
         images: [
             "/images/shoe-2.png",
-            "/images/shoe-detail-1.png",
-            "/images/shoe-detail-2.png",
-            "/images/shoe-detail-3.png",
-            "/images/shoe-detail-4.png",
+            "/images/shoe-details-2.png",
+            "/images/shoe-details-3.png",
+            "/images/shoe-details-4.png",
         ],
         category: "running",
         isNew: true,
@@ -75,10 +65,9 @@ export const products: Product[] = [
         image: "/images/shoe-3.png",
         images: [
             "/images/shoe-3.png",
-            "/images/shoe-detail-1.png",
-            "/images/shoe-detail-2.png",
-            "/images/shoe-detail-3.png",
-            "/images/shoe-detail-4.png",
+            "/images/shoe-details-2.png",
+            "/images/shoe-details-3.png",
+            "/images/shoe-details-4.png",
         ],
         category: "running",
         isNew: true,
@@ -98,10 +87,9 @@ export const products: Product[] = [
         image: "/images/shoe-4.png",
         images: [
             "/images/shoe-4.png",
-            "/images/shoe-detail-1.png",
-            "/images/shoe-detail-2.png",
-            "/images/shoe-detail-3.png",
-            "/images/shoe-detail-4.png",
+            "/images/shoe-details-2.png",
+            "/images/shoe-details-3.png",
+            "/images/shoe-details-4.png",
         ],
         category: "running",
         isNew: true,
@@ -162,16 +150,12 @@ export const products: Product[] = [
     },
 ];
 
-// ----- Helper Functions -----
 
-// Get a single product by its ID
-// Returns the product if found, or undefined if not
 export function getProductById(id: number): Product | undefined {
     return products.find((product) => product.id === id);
 }
 
-// Get related products (same category, but NOT the current product)
-// This is used for the "You may also like" section
+
 export function getRelatedProducts(
     currentProductId: number,
     category: string
@@ -181,3 +165,48 @@ export function getRelatedProducts(
             product.category === category && product.id !== currentProductId
     );
 }
+
+export const carouselProducts = [
+    {
+        id: 1,
+        name: "Adidas 4DFWD X Parley Running Shoes",
+        price: 125,
+        image: "/images/shoe-1.png",
+        isNew: true,
+    },
+    {
+        id: 2,
+        name: "Adidas 4DFWD X Parley Running Shoes",
+        price: 125,
+        image: "/images/shoe-2.png",
+        isNew: true,
+    },
+    {
+        id: 3,
+        name: "Adidas 4DFWD X Parley Running Shoes",
+        price: 125,
+        image: "/images/shoe-3.png",
+        isNew: true,
+    },
+    {
+        id: 4,
+        name: "Adidas 4DFWD X Parley Running Shoes",
+        price: 125,
+        image: "/images/shoe-4.png",
+        isNew: true,
+    },
+    {
+        id: 5,
+        name: "Adidas 4DFWD X Parley Running Shoes",
+        price: 125,
+        image: "/images/shoe-1.png",
+        isNew: true,
+    },
+    {
+        id: 6,
+        name: "Adidas 4DFWD X Parley Running Shoes",
+        price: 125,
+        image: "/images/shoe-2.png",
+        isNew: true,
+    },
+];

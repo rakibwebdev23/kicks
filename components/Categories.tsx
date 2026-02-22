@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import CommonWrapper from "@/common/CommonWrapper";
 
 const categories = [
@@ -33,25 +33,25 @@ export default function Categories() {
                         <div className="flex gap-[8px]">
                             <button
                                 aria-label="Previous category"
-                                className="bg-white/30 hover:bg-white/40 text-[#E7E7E3] rounded-[8px] flex justify-center items-center w-[40px] h-[40px] md:w-[48px] md:h-[48px] transition-colors cursor-pointer"
+                                className="bg-[#858582] rounded-[8px] flex justify-center items-center w-[40px] h-[40px] md:w-[48px] md:h-[48px] transition-colors cursor-pointer border-0"
                             >
-                                <ArrowLeft className="w-5 h-5 md:w-6 md:h-6" />
+                                <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-[#232321]" />
                             </button>
                             <button
                                 aria-label="Next category"
-                                className="bg-white hover:bg-gray-100 text-[#232321] rounded-[8px] flex justify-center items-center w-[40px] h-[40px] md:w-[48px] md:h-[48px] transition-colors cursor-pointer"
+                                className="bg-[#E7E7E3] rounded-[8px] flex justify-center items-center w-[40px] h-[40px] md:w-[48px] md:h-[48px] transition-colors hover:bg-[#4A69E2] cursor-pointer border-0 group"
                             >
-                                <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
+                                <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-[#232321] group-hover:text-white transition-colors" />
                             </button>
                         </div>
                     </div>
                 </CommonWrapper>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 xl:pl-[305px]">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 pl-[18px] xl:pl-[305px]">
                     {categories.map((category) => (
                         <div
                             key={category.id}
-                            className={`relative w-full h-[350px] md:h-[600px] flex flex-col justify-between group cursor-pointer overflow-hidden ${category.id === 1 ? "bg-[#ECEEF0] rounded-none md:rounded-tl-[64px]" : "bg-[#F6F6F6] rounded-none"
+                            className={`relative w-full h-[350px] md:h-[600px] flex flex-col justify-between group cursor-pointer overflow-hidden ${category.id === 1 ? "bg-[#ECEEF0] rounded-tl-[24px] md:rounded-tl-[64px] " : "bg-[#F6F6F6] rounded-none"
                                 }`}
                         >
                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -70,7 +70,7 @@ export default function Categories() {
                                     {category.name}
                                 </h3>
 
-                                <button className="w-[40px] h-[40px] md:w-[48px] md:h-[48px] bg-[#232321] text-white flex items-center justify-center rounded-[8px] hover:bg-[#4A69E2] transition-colors duration-300 cursor-pointer">
+                                <button className="w-[40px] h-[40px] md:w-[48px] md:h-[48px] bg-[#232321] text-white flex items-center justify-center rounded-[8px] hover:bg-[#4A69E2] transition-colors duration-300 cursor-pointer border-0">
                                     <ArrowUpRight className="w-5 h-5 md:w-6 md:h-6" />
                                 </button>
                             </div>
