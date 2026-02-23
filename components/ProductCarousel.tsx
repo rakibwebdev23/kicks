@@ -55,7 +55,7 @@ export default function ProductCarousel({
                     </h2>
                 </div>
 
-                <div className="flex gap-[8px] items-center">
+                <div className="hidden md:flex gap-[8px] items-center">
                     {actionButton}
 
                     <div className="flex gap-[8px]">
@@ -87,36 +87,46 @@ export default function ProductCarousel({
                 </div>
             </div>
 
-            <Swiper
-                modules={[Navigation, Pagination]}
-                spaceBetween={20}
-                slidesPerView={1.2}
-                breakpoints={{
-                    640: {
-                        slidesPerView: 2,
-                        spaceBetween: 20,
-                    },
-                    1024: {
-                        slidesPerView: 4,
-                        spaceBetween: 24,
-                    },
-                }}
-                onSwiper={(swiper) => {
-                    swiperRef.current = swiper;
-                }}
-                onSlideChange={(swiper) => {
-                    setActiveIndex(swiper.realIndex);
-                    setIsBeginning(swiper.isBeginning);
-                    setIsEnd(swiper.isEnd);
-                }}
-                className="w-full !overflow-visible md:!overflow-hidden"
-            >
+            {/* Mobile: 2-column grid */}
+            <div className="grid grid-cols-2 gap-3 md:hidden">
                 {products.map((product) => (
-                    <SwiperSlide key={product.id} className="h-auto">
-                        <ProductCard {...product} />
-                    </SwiperSlide>
+                    <ProductCard key={product.id} {...product} mobileVariant />
                 ))}
-            </Swiper>
+            </div>
+
+            {/* Desktop: Swiper carousel */}
+            <div className="hidden md:block">
+                <Swiper
+                    modules={[Navigation, Pagination]}
+                    spaceBetween={20}
+                    slidesPerView={1.2}
+                    breakpoints={{
+                        640: {
+                            slidesPerView: 2,
+                            spaceBetween: 20,
+                        },
+                        1024: {
+                            slidesPerView: 4,
+                            spaceBetween: 24,
+                        },
+                    }}
+                    onSwiper={(swiper) => {
+                        swiperRef.current = swiper;
+                    }}
+                    onSlideChange={(swiper) => {
+                        setActiveIndex(swiper.realIndex);
+                        setIsBeginning(swiper.isBeginning);
+                        setIsEnd(swiper.isEnd);
+                    }}
+                    className="w-full !overflow-visible md:!overflow-hidden"
+                >
+                    {products.map((product) => (
+                        <SwiperSlide key={product.id} className="h-auto">
+                            <ProductCard {...product} />
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
 
             {!actionButton && (
                 <div className="flex justify-center items-center gap-2 mt-12 md:mt-16">

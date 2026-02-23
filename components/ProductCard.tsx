@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 type ProductCardProps = {
@@ -11,6 +10,7 @@ type ProductCardProps = {
     price: number;
     image: string;
     isNew?: boolean;
+    mobileVariant?: boolean;
 };
 
 export default function ProductCard({
@@ -19,7 +19,41 @@ export default function ProductCard({
     price,
     image,
     isNew = false,
+    mobileVariant = false,
 }: ProductCardProps) {
+    if (mobileVariant) {
+        return (
+            <div className="flex flex-col">
+                <Link href={`/product/${id}`} className="block">
+                    <div className="w-full p-2 bg-[#FAFAFA] rounded-[16px]">
+                        <div
+                            className="relative bg-[#ECEEF0] overflow-hidden flex items-center justify-center"
+                            style={{ height: 164, borderRadius: 12 }}
+                        >
+                            <Image
+                                src={image}
+                                alt={name}
+                                fill
+                                className="object-contain"
+                                sizes="155px"
+                            />
+                            {isNew && (
+                                <span className="absolute top-0 left-0 w-[46px] h-[28px] bg-[#4A69E2] text-white text-[10px] font-semibold flex items-center justify-center border-0 uppercase font-['Rubik',sans-serif] leading-[100%] rounded-br-[12px]">
+                                    New
+                                </span>
+                            )}
+                        </div>
+                    </div>
+                </Link>
+                <div className="mt-2">
+                    <h3 className="line-clamp-2 font-['Rubik',sans-serif] font-semibold text-[16px] leading-[100%] tracking-[0%] text-[#232321] uppercase">
+                        {name}
+                    </h3>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="group flex flex-col h-full">
             <Link href={`/product/${id}`} className="block">

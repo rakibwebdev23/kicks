@@ -20,6 +20,7 @@ export default function ProductDetailPage({
     const product = getProductById(parseInt(id));
 
     const [showLoginModal, setShowLoginModal] = useState(false);
+    const [selectedColor, setSelectedColor] = useState(0);
 
     if (!product) {
         return (
@@ -37,7 +38,7 @@ export default function ProductDetailPage({
     };
 
     return (
-        <main className="pt-24 md:pt-[160px] pb-10 md:pb-24">
+        <main className="pt-32 md:pt-[160px] pb-10 md:pb-24">
             <CommonWrapper>
                 <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8 lg:gap-14 mb-20">
 
@@ -50,24 +51,31 @@ export default function ProductDetailPage({
                             </span>
                         )}
 
-                        <h1 className="text-[28px] md:text-[36px] font-extrabold text-kicks-dark leading-[1.1] mb-2 uppercase tracking-tight">
+                        <h1 className="font-['Rubik',sans-serif] font-semibold text-[32px] leading-[100%] tracking-[0%] text-kicks-dark mb-2 uppercase">
                             {product.name}
                         </h1>
 
-                        <p className="text-xl md:text-2xl font-bold text-kicks-blue mb-10">
+                        <p className="font-['Rubik',sans-serif] font-semibold text-[24px] leading-[100%] tracking-[0%] text-[#4A69E2] mb-10">
                             ${product.price}.00
                         </p>
 
                         <div className="mb-8">
-                            <p className="text-sm font-bold text-kicks-dark uppercase mb-4 tracking-wide">Color</p>
+                            <p className="font-['Rubik',sans-serif] font-semibold text-[16px] leading-[100%] tracking-[0%] uppercase text-kicks-dark mb-4">Color</p>
                             <div className="flex gap-3">
                                 {product.colors.map((color, index) => (
                                     <button
                                         key={index}
-                                        className={`size-10 rounded-full border-[3px] transition-all p-1 outline-none ${index === 0 ? "border-kicks-dark" : "border-transparent hover:border-kicks-light"
+                                        onClick={() => setSelectedColor(index)}
+                                        className={`rounded-full transition-all outline-none cursor-pointer flex items-center justify-center ${selectedColor === index
+                                            ? "border-2 border-kicks-dark"
+                                            : "border-2 border-transparent hover:border-kicks-light"
                                             }`}
+                                        style={{ width: 44, height: 44, padding: 4 }}
                                     >
-                                        <div className="w-full h-full rounded-full" style={{ backgroundColor: color }} />
+                                        <div
+                                            className="rounded-full"
+                                            style={{ width: 32, height: 32, backgroundColor: selectedColor === index ? "#253043" : "#707E6E" }}
+                                        />
                                     </button>
                                 ))}
                             </div>
@@ -75,14 +83,14 @@ export default function ProductDetailPage({
 
                         <div className="mb-10">
                             <div className="flex items-center justify-between mb-4">
-                                <p className="text-sm font-bold text-kicks-dark uppercase tracking-wide">Size</p>
-                                <button className="text-[11px] font-bold text-kicks-dark uppercase underline underline-offset-4 hover:text-kicks-blue transition-colors">Size Chart</button>
+                                <p className="font-['Rubik',sans-serif] font-semibold text-[16px] leading-[100%] tracking-[0%] uppercase text-kicks-dark">Size</p>
+                                <button className="text-[11px] font-bold text-kicks-dark uppercase underline underline-offset-4 hover:text-kicks-blue transition-colors cursor-pointer">Size Chart</button>
                             </div>
                             <div className="grid grid-cols-5 sm:grid-cols-6 lg:grid-cols-8 gap-2">
                                 {product.sizes.map((size, index) => (
                                     <button
                                         key={size}
-                                        className={`h-11 rounded-xl text-sm font-bold transition-all border outline-none ${index === 0
+                                        className={`h-11 rounded-xl text-sm font-bold transition-all border outline-none cursor-pointer ${index === 0
                                             ? "bg-kicks-dark text-white border-kicks-dark"
                                             : "bg-white text-kicks-dark border-kicks-light hover:border-kicks-dark"
                                             }`}
@@ -113,11 +121,11 @@ export default function ProductDetailPage({
                         </Button>
 
                         <div className="border-t border-kicks-light pt-8">
-                            <p className="text-sm font-bold text-kicks-dark uppercase mb-2 tracking-wide">About the Product</p>
-                            <p className="text-[14px] font-medium text-kicks-gray mb-6">{product.description}</p>
+                            <p className="font-['Rubik',sans-serif] font-semibold text-[16px] leading-[100%] tracking-[0%] uppercase text-kicks-dark mb-2">About the Product</p>
+                            <p className="font-['Open_Sans',sans-serif] font-normal text-[16px] leading-[100%] tracking-[0%] text-kicks-gray mb-6">{product.description}</p>
                             <ul className="list-none space-y-4">
                                 {product.details.map((detail, index) => (
-                                    <li key={index} className="text-[13px] text-kicks-gray leading-relaxed flex items-start gap-2">
+                                    <li key={index} className="font-['Open_Sans',sans-serif] font-normal text-[16px] leading-[100%] tracking-[0%] text-kicks-gray flex items-start gap-2">
                                         <span className="mt-1.5 size-1.5 rounded-full bg-kicks-gray shrink-0" />
                                         {detail}
                                     </li>
