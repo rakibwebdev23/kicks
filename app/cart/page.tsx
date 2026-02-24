@@ -171,7 +171,7 @@ export default function CartPage() {
                     </div>
                 </div>
 
-                <div className="mt-20 md:mt-32">
+                <div className="mt-12 md:mt-20">
                     <ProductCarousel
                         title="You may also like"
                         products={carouselProducts}

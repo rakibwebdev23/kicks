@@ -12,6 +12,7 @@ import ErrorState from "@/components/ui/ErrorState";
 import { useAppDispatch, useAppSelector } from "@/redux/store/hook";
 import { addToCart } from "@/redux/store/cartSlice";
 import { toggleLoginModal } from "@/redux/store/authSlice";
+import { toast } from "sonner";
 
 export default function ProductDetailPage({
     params,
@@ -30,9 +31,8 @@ export default function ProductDetailPage({
     const { data: allProducts } = useGetAllProductsQuery();
 
     const [selectedColor, setSelectedColor] = useState(0);
-    const [selectedSize, setSelectedSize] = useState(0); // Index of staticSizes
+    const [selectedSize, setSelectedSize] = useState(0);
 
-    // Mock constants for missing API data (colors, sizes, details)
     const staticColors = [0, 1, 2];
     const staticSizes = [38, 39, 40, 41, 42, 43, 44, 45, 46, 47];
     const staticDetails = [
@@ -73,7 +73,7 @@ export default function ProductDetailPage({
             color: selectedColor,
             quantity: 1
         }));
-        // Optional: show some feedback or redirect
+        toast.success("Successfully added to cart!");
     };
 
     const handleBuyNow = () => {

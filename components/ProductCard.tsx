@@ -64,12 +64,12 @@ export default function ProductCard({
     return (
         <div className="group flex flex-col h-full">
             <Link href={`/product/${id}`} className="relative h-full block">
-                <div className="relative aspect-square bg-[#ECEEF0] rounded-[28px] overflow-hidden flex items-center justify-center mb-4 transition-transform duration-500 group-hover:scale-[1.02] border-8 border-white">
+                <div className="relative aspect-square bg-[#ECEEF0] rounded-[28px] overflow-hidden flex items-center justify-center mb-4 border-8 border-white">
                     <Image
                         src={productImage}
                         alt={productName}
                         fill
-                        className="object-cover"
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
                         sizes="(max-width: 768px) 50vw, 25vw"
                     />
                     {isNew && (

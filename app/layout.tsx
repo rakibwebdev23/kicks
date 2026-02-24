@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ReduxProvider from "@/redux/store/ReduxProvider";
 import type { Metadata } from "next";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -31,11 +32,12 @@ export default function RootLayout({
       </head>
       <body>
         <ReduxProvider>
+          <Toaster position="bottom-right" richColors />
           <Navbar />
           {children}
           <Footer />
         </ReduxProvider>
       </body>
-    </html >
+    </html>
   );
 }
