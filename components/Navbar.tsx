@@ -36,8 +36,8 @@ export default function Navbar() {
                 <nav
                     id="navbar"
                     className={`bg-white transition-all duration-300 px-4 py-4 md:px-8 ${scrolled
-                        ? "rounded-none md:rounded-b-3xl md:py-4 shadow-sm"
-                        : "rounded-[24px] md:rounded-3xl md:py-8"
+                        ? "rounded-b-[12px] md:rounded-b-3xl md:py-8 shadow-sm"
+                        : "rounded-[12px] md:rounded-3xl md:py-8"
                         }`}
                 >
                     <div className="relative flex items-center justify-between">
