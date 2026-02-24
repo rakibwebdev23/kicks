@@ -5,7 +5,7 @@ import Reviews from "@/components/Reviews";
 
 export default function Home() {
   return (
-    <main className="pt-24 md:pt-[140px] pb-10 md:pb-24">
+    <main className="pt-24 md:pt-[140px] pb-10">
       <HeroBanner />
       <NewDrops />
       <Categories />

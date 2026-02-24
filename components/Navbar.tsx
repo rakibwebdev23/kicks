@@ -9,9 +9,12 @@ import { Badge } from "@/components/ui/badge";
 
 import CommonWrapper from "@/common/CommonWrapper";
 import { FaUser } from "react-icons/fa";
+import { useAppSelector } from "@/redux/store/hook";
 
 export default function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const cartItems = useAppSelector((state) => state.cart.items);
+    const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
     return (
         <div className="fixed top-0 left-0 w-full z-50 pt-8">
@@ -95,7 +98,7 @@ export default function Navbar() {
                                     className="relative rounded-full hover:bg-gray-100"
                                 >
                                     <Badge className="w-[32px] h-[32px] p-[10px] gap-[10px] flex items-center justify-center bg-[#FFA52F] text-[#232321] text-[16px] font-bold border-0 hover:bg-[#FFA52F] rounded-full">
-                                        0
+                                        {cartCount}
                                     </Badge>
                                 </Button>
                             </Link>

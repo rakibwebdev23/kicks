@@ -9,6 +9,9 @@ import ProductCarousel from "@/components/ProductCarousel";
 import CommonWrapper from "@/common/CommonWrapper";
 import { useGetSingleProductQuery, useGetAllProductsQuery } from "@/redux/api/api";
 import ErrorState from "@/components/ui/ErrorState";
+import { useAppDispatch, useAppSelector } from "@/redux/store/hook";
+import { addToCart } from "@/redux/store/cartSlice";
+import { toggleLoginModal } from "@/redux/store/authSlice";
 
 export default function ProductDetailPage({
     params,
@@ -17,13 +20,17 @@ export default function ProductDetailPage({
 }) {
     const { id } = use(params);
     const productId = parseInt(id);
+    const dispatch = useAppDispatch();
+
+    // Redux State
+    const { showLoginModal } = useAppSelector((state) => state.auth);
 
     // API Queries
     const { data: product, isLoading, isError, refetch } = useGetSingleProductQuery(productId);
     const { data: allProducts } = useGetAllProductsQuery();
 
-    const [showLoginModal, setShowLoginModal] = useState(false);
     const [selectedColor, setSelectedColor] = useState(0);
+    const [selectedSize, setSelectedSize] = useState(0); // Index of staticSizes
 
     // Mock constants for missing API data (colors, sizes, details)
     const staticColors = [0, 1, 2];
@@ -56,15 +63,28 @@ export default function ProductDetailPage({
         );
     }
 
-    const handleActionClick = () => {
-        setShowLoginModal(true);
+    const handleAddToCart = () => {
+        dispatch(addToCart({
+            id: product.id,
+            title: product.title,
+            price: product.price,
+            image: (product.images && product.images[0]) || "/images/placeholder.png",
+            size: staticSizes[selectedSize],
+            color: selectedColor,
+            quantity: 1
+        }));
+        // Optional: show some feedback or redirect
+    };
+
+    const handleBuyNow = () => {
+        dispatch(toggleLoginModal(true));
     };
 
     // Prepare carousel products (e.g., first 4 from all products)
     const carouselProducts = allProducts?.slice(0, 4) || [];
 
     return (
-        <main className="pt-32 md:pt-[160px] pb-10 md:pb-24">
+        <main className="pt-32 md:pt-40 pb-10 md:pb-24">
             <CommonWrapper>
                 <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8 lg:gap-14 mb-20">
 
@@ -75,16 +95,16 @@ export default function ProductDetailPage({
                             New Release
                         </span>
 
-                        <h1 className="font-['Rubik',sans-serif] font-semibold text-[32px] leading-[100%] tracking-[0%] text-kicks-dark mb-2 uppercase">
+                        <h1 className="font-heading font-semibold text-[32px] leading-[100%] tracking-[0%] text-kicks-dark mb-2 uppercase">
                             {product.title}
                         </h1>
 
-                        <p className="font-['Rubik',sans-serif] font-semibold text-[24px] leading-[100%] tracking-[0%] text-[#4A69E2] mb-10">
+                        <p className="font-heading font-semibold text-[24px] leading-[100%] tracking-[0%] text-kicks-blue mb-10">
                             ${product.price}.00
                         </p>
 
                         <div className="mb-8">
-                            <p className="font-['Rubik',sans-serif] font-semibold text-[16px] leading-[100%] tracking-[0%] uppercase text-kicks-dark mb-4">Color</p>
+                            <p className="font-heading font-semibold text-[16px] leading-[100%] tracking-[0%] uppercase text-kicks-dark mb-4">Color</p>
                             <div className="flex gap-3">
                                 {staticColors.map((_: number, index: number) => (
                                     <button
@@ -107,14 +127,15 @@ export default function ProductDetailPage({
 
                         <div className="mb-10">
                             <div className="flex items-center justify-between mb-4">
-                                <p className="font-['Rubik',sans-serif] font-semibold text-[16px] leading-[100%] tracking-[0%] uppercase text-kicks-dark">Size</p>
+                                <p className="font-heading font-semibold text-[16px] leading-[100%] tracking-[0%] uppercase text-kicks-dark">Size</p>
                                 <button className="text-[11px] font-bold text-kicks-dark uppercase underline underline-offset-4 hover:text-kicks-blue transition-colors cursor-pointer">Size Chart</button>
                             </div>
                             <div className="grid grid-cols-5 sm:grid-cols-6 lg:grid-cols-8 gap-2">
                                 {staticSizes.map((size: number, index: number) => (
                                     <button
                                         key={size}
-                                        className={`h-11 rounded-xl text-sm font-bold transition-all border outline-none cursor-pointer ${index === 0
+                                        onClick={() => setSelectedSize(index)}
+                                        className={`h-11 rounded-xl text-sm font-bold transition-all border outline-none cursor-pointer ${selectedSize === index
                                             ? "bg-kicks-dark text-white border-kicks-dark"
                                             : "bg-white text-kicks-dark border-kicks-light hover:border-kicks-dark"
                                             }`}
@@ -127,25 +148,25 @@ export default function ProductDetailPage({
 
                         <div className="flex gap-3 mb-4">
                             <Button
-                                onClick={handleActionClick}
+                                onClick={handleAddToCart}
                                 className="flex-1 bg-kicks-dark hover:bg-kicks-dark/90 text-white h-14 font-bold uppercase tracking-wider rounded-xl text-sm cursor-pointer"
                             >
                                 Add to Cart
                             </Button>
-                            <Button variant="outline" size="icon" className="size-14 rounded-xl border-2 border-kicks-dark bg-transparent hover:bg-kicks-dark hover:text-white transition-all cursor-pointer">
+                            <Button variant="outline" size="icon" className="size-14 rounded-xl border-2 bg-kicks-dark text-white transition-all cursor-pointer hover:bg-kicks-blue">
                                 <Heart className="size-5" />
                             </Button>
                         </div>
 
                         <Button
-                            onClick={handleActionClick}
+                            onClick={handleBuyNow}
                             className="w-full bg-kicks-blue hover:bg-[#3a56c4] text-white h-14 font-bold uppercase tracking-wider rounded-xl mb-12 text-sm cursor-pointer"
                         >
                             Buy It Now
                         </Button>
 
                         <div className="border-t border-kicks-light pt-8">
-                            <p className="font-['Rubik',sans-serif] font-semibold text-[16px] leading-[100%] tracking-[0%] uppercase text-kicks-dark mb-2">About the Product</p>
+                            <p className="font-heading font-semibold text-[16px] leading-[100%] tracking-[0%] uppercase text-kicks-dark mb-2">About the Product</p>
                             <p className="font-['Open_Sans',sans-serif] font-normal text-[16px] leading-[100%] tracking-[0%] text-kicks-gray mb-6">{product.description}</p>
                             <ul className="list-none space-y-4">
                                 {staticDetails.map((detail: string, index: number) => (
@@ -168,10 +189,10 @@ export default function ProductDetailPage({
                 </div>
 
                 {showLoginModal && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+                    <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
                         <div className="bg-white rounded-[24px] p-8 max-w-md w-full shadow-2xl relative">
                             <button
-                                onClick={() => setShowLoginModal(false)}
+                                onClick={() => dispatch(toggleLoginModal(false))}
                                 className="absolute top-6 right-6 text-kicks-dark hover:text-kicks-blue transition-colors cursor-pointer border-0 bg-transparent"
                             >
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -183,12 +204,15 @@ export default function ProductDetailPage({
                             <p className="text-kicks-gray mb-8">You need to be logged in to add products to your bag or purchase them.</p>
 
                             <div className="space-y-4">
-                                <Button className="w-full bg-kicks-blue hover:bg-[#3a56c4] text-white h-14 font-bold uppercase rounded-xl border-0">
+                                <Button
+                                    onClick={() => dispatch(toggleLoginModal(false))}
+                                    className="w-full bg-kicks-blue hover:bg-[#3a56c4] text-white h-14 font-bold uppercase rounded-xl border-0"
+                                >
                                     Login
                                 </Button>
                                 <Button
                                     variant="outline"
-                                    onClick={() => setShowLoginModal(false)}
+                                    onClick={() => dispatch(toggleLoginModal(false))}
                                     className="w-full border-kicks-dark text-kicks-dark h-14 font-bold uppercase rounded-xl"
                                 >
                                     Cancel

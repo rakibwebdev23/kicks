@@ -37,7 +37,7 @@ const reviews = [
 
 export default function Reviews() {
     return (
-        <section id="reviews" className="py-10 md:py-24 bg-[#E7E7E3]">
+        <section id="reviews" className="pt-10 md:pt-24 pb-10 md:pb-16 bg-[#E7E7E3]">
             <CommonWrapper>
                 <div className="flex justify-between items-center mb-8 md:mb-12">
                     <h2 className="font-heading font-semibold uppercase text-kicks-dark text-[24px] md:text-[74px] leading-[100%] md:leading-[95%]">

@@ -1,6 +1,5 @@
 import { baseApi } from "./baseApi";
 
-// ---- Types ----
 export interface Category {
     id: number;
     name: string;

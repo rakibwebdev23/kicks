@@ -17,9 +17,7 @@ export default function ProductGallery({
 
     return (
         <>
-            {/* Mobile Layout: Main image + thumbnail strip */}
             <div className="block sm:hidden">
-                {/* Main selected image */}
                 <div
                     className="relative mx-auto bg-[#F5F5F5] overflow-hidden"
                     style={{
@@ -37,7 +35,6 @@ export default function ProductGallery({
                     />
                 </div>
 
-                {/* Thumbnail strip */}
                 <div className="flex gap-2 mt-4 justify-center">
                     {displayImages.map((image, index) => (
                         <button
@@ -64,7 +61,6 @@ export default function ProductGallery({
                 </div>
             </div>
 
-            {/* Desktop Layout: Original 2x2 grid */}
             <div className="hidden sm:grid grid-cols-2 gap-4">
                 {displayImages.map((image, index) => {
                     let radiusClass = "";

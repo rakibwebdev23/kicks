@@ -35,8 +35,8 @@ export default function HeroBanner() {
                         </div>
                     </div>
 
-                    <div className="hidden md:block absolute left-0 top-[80px] z-10">
-                        <div className="bg-[#232321] text-white text-base font-semibold tracking-[0.15em] p-6 gap-[10px] whitespace-nowrap rounded-tl-[16px] rounded-bl-[16px] [writing-mode:vertical-lr] rotate-180">
+                    <div className="hidden md:block absolute left-0 top-20 z-10">
+                        <div className="bg-kicks-dark text-white text-base font-semibold tracking-[0.15em] p-6 gap-2.5 whitespace-nowrap rounded-tl-[16px] rounded-bl-[16px] [writing-mode:vertical-lr] rotate-180">
                             Nike product of the year
                         </div>
                     </div>
