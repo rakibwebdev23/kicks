@@ -12,14 +12,7 @@ import "swiper/css/pagination";
 
 import ProductCard from "./ProductCard";
 import { Button } from "@/components/ui/button";
-
-interface Product {
-    id: number;
-    name: string;
-    price: number;
-    image: string;
-    isNew?: boolean;
-}
+import { Product } from "@/redux/api/api";
 
 interface ProductCarouselProps {
     title: React.ReactNode;

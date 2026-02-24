@@ -3,39 +3,16 @@
 import { Button } from "@/components/ui/button";
 import CommonWrapper from "@/common/CommonWrapper";
 import ProductCard from "@/components/ProductCard";
-
-const newDropsProducts = [
-    {
-        id: 1,
-        name: "Adidas 4DFWD X Parley Running Shoes",
-        price: 125,
-        image: "/images/shoe-1.png",
-        isNew: true,
-    },
-    {
-        id: 2,
-        name: "Adidas 4DFWD X Parley Running Shoes",
-        price: 125,
-        image: "/images/shoe-2.png",
-        isNew: true,
-    },
-    {
-        id: 3,
-        name: "Adidas 4DFWD X Parley Running Shoes",
-        price: 125,
-        image: "/images/shoe-3.png",
-        isNew: true,
-    },
-    {
-        id: 4,
-        name: "Adidas 4DFWD X Parley Running Shoes",
-        price: 125,
-        image: "/images/shoe-4.png",
-        isNew: true,
-    },
-];
+import { useGetAllProductsQuery, Product } from "@/redux/api/api";
+import { ProductCardSkeleton } from "./ui/LoadingSkeleton";
+import ErrorState from "./ui/ErrorState";
 
 export default function NewDrops() {
+    const { data: products, isLoading, isError, refetch } = useGetAllProductsQuery();
+
+    // Limit to 4 for the initial "New Drops" grid
+    const featuredProducts = products?.slice(0, 4) || [];
+
     return (
         <section id="new-drops" className="py-10 md:py-24">
             <CommonWrapper>
@@ -48,11 +25,23 @@ export default function NewDrops() {
                     </Button>
                 </div>
 
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                    {newDropsProducts.map((product) => (
-                        <ProductCard key={product.id} {...product} />
-                    ))}
-                </div>
+                {isLoading ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                        {[1, 2, 3, 4].map((i) => (
+                            <ProductCardSkeleton key={i} />
+                        ))}
+                    </div>
+                ) : isError ? (
+                    <ErrorState onRetry={refetch} />
+                ) : featuredProducts.length === 0 ? (
+                    <div className="text-center py-20 text-gray-500">No products found.</div>
+                ) : (
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                        {featuredProducts.map((product: Product) => (
+                            <ProductCard key={product.id} {...product} isNew />
+                        ))}
+                    </div>
+                )}
             </CommonWrapper>
         </section>
     );

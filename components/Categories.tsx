@@ -1,57 +1,62 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import CommonWrapper from "@/common/CommonWrapper";
-
-const categories = [
-    {
-        id: 1,
-        name: "LIFESTYLE SHOES",
-        image: "/images/categories-1.png",
-    },
-    {
-        id: 2,
-        name: "BASKETBALL SHOES",
-        image: "/images/categories-2.png",
-    },
-];
+import { useGetAllCategoriesQuery, Category } from "@/redux/api/api";
+import { CategorySkeleton } from "./ui/LoadingSkeleton";
+import ErrorState from "./ui/ErrorState";
 
 export default function Categories() {
+    const { data: categoriesData, isLoading, isError, refetch } = useGetAllCategoriesQuery();
+
+    // Filter and limit categories to 2 as per the original design grid (but usually 2 or 4 works well)
+    // The design has a 2-column grid. Let's stick to 2.
+    const categories = categoriesData?.filter((cat: Category) => cat.image && !cat.image.includes("placeimg.com")).slice(0, 2) || [];
+
     return (
         <section id="categories" className="overflow-hidden bg-[#232321] pt-10 md:pt-20">
-            <div className="left-0 w-full h-full" />
-            <div className="" />
+            <CommonWrapper>
+                <div className="flex items-center justify-between mb-8 md:mb-10">
+                    <h2 className="font-['Rubik',sans-serif] font-semibold text-[24px] md:text-[74px] leading-[100%] md:leading-[95%] tracking-[0%] uppercase text-white">
+                        CATEGORIES
+                    </h2>
 
-            <div className="">
-                <CommonWrapper>
-                    <div className="flex items-center justify-between mb-8 md:mb-10">
-                        <h2 className="font-['Rubik',sans-serif] font-semibold text-[24px] md:text-[74px] leading-[100%] md:leading-[95%] tracking-[0%] uppercase text-white">
-                            CATEGORIES
-                        </h2>
-
-                        <div className="flex gap-[8px]">
-                            <button
-                                aria-label="Previous category"
-                                className="bg-[#858582] rounded-[8px] flex justify-center items-center w-[40px] h-[40px] md:w-[48px] md:h-[48px] transition-colors cursor-pointer border-0"
-                            >
-                                <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-[#232321]" />
-                            </button>
-                            <button
-                                aria-label="Next category"
-                                className="bg-[#E7E7E3] rounded-[8px] flex justify-center items-center w-[40px] h-[40px] md:w-[48px] md:h-[48px] transition-colors hover:bg-[#4A69E2] cursor-pointer border-0 group"
-                            >
-                                <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-[#232321] group-hover:text-white transition-colors" />
-                            </button>
-                        </div>
+                    <div className="flex gap-[8px]">
+                        <button
+                            aria-label="Previous category"
+                            className="bg-[#858582] rounded-[8px] flex justify-center items-center w-[40px] h-[40px] md:w-[48px] md:h-[48px] transition-colors cursor-pointer border-0"
+                        >
+                            <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-[#232321]" />
+                        </button>
+                        <button
+                            aria-label="Next category"
+                            className="bg-[#E7E7E3] rounded-[8px] flex justify-center items-center w-[40px] h-[40px] md:w-[48px] md:h-[48px] transition-colors hover:bg-[#4A69E2] cursor-pointer border-0 group"
+                        >
+                            <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-[#232321] group-hover:text-white transition-colors" />
+                        </button>
                     </div>
-                </CommonWrapper>
+                </div>
+            </CommonWrapper>
 
+            {isLoading ? (
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 pl-[18px] xl:pl-[305px]">
-                    {categories.map((category) => (
+                    {[1, 2].map((i) => (
+                        <CategorySkeleton key={i} />
+                    ))}
+                </div>
+            ) : isError ? (
+                <div className="px-4 pb-20">
+                    <ErrorState onRetry={refetch} />
+                </div>
+            ) : categories.length === 0 ? (
+                <div className="text-center py-20 text-gray-400">No categories found.</div>
+            ) : (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 pl-[18px] xl:pl-[305px]">
+                    {categories.map((category: Category, index: number) => (
                         <div
                             key={category.id}
-                            className={`relative w-full h-[350px] md:h-[600px] flex flex-col justify-between group cursor-pointer overflow-hidden ${category.id === 1 ? "bg-[#ECEEF0] rounded-tl-[24px] md:rounded-tl-[64px] " : "bg-[#F6F6F6] rounded-none"
+                            className={`relative w-full h-[350px] md:h-[600px] flex flex-col justify-between group cursor-pointer overflow-hidden ${index === 0 ? "bg-[#ECEEF0] rounded-tl-[24px] md:rounded-tl-[64px] " : "bg-[#F6F6F6] rounded-none"
                                 }`}
                         >
                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -60,7 +65,7 @@ export default function Categories() {
                                         src={category.image}
                                         alt={category.name}
                                         fill
-                                        className={`object-contain md:object-cover sm:object-contain transition-transform duration-500 ${category.id === 1 ? "-scale-x-100" : ""}`}
+                                        className={`object-contain md:object-cover sm:object-contain transition-transform duration-500 ${index === 0 ? "-scale-x-100" : ""}`}
                                     />
                                 </div>
                             </div>
@@ -77,7 +82,7 @@ export default function Categories() {
                         </div>
                     ))}
                 </div>
-            </div>
+            )}
         </section>
     );
 }

@@ -1,14 +1,14 @@
 "use client";
 
-import { getProductById, carouselProducts } from "@/data/products";
-import { useState, use } from "react";
+import { use, useState } from "react";
 import Link from "next/link";
 import ProductGallery from "@/components/ProductGallery";
 import { Button } from "@/components/ui/button";
-import { Heart } from "lucide-react";
+import { Heart, Loader2 } from "lucide-react";
 import ProductCarousel from "@/components/ProductCarousel";
-
 import CommonWrapper from "@/common/CommonWrapper";
+import { useGetSingleProductQuery, useGetAllProductsQuery } from "@/redux/api/api";
+import ErrorState from "@/components/ui/ErrorState";
 
 export default function ProductDetailPage({
     params,
@@ -16,17 +16,40 @@ export default function ProductDetailPage({
     params: Promise<{ id: string }>;
 }) {
     const { id } = use(params);
+    const productId = parseInt(id);
 
-    const product = getProductById(parseInt(id));
+    // API Queries
+    const { data: product, isLoading, isError, refetch } = useGetSingleProductQuery(productId);
+    const { data: allProducts } = useGetAllProductsQuery();
 
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [selectedColor, setSelectedColor] = useState(0);
 
-    if (!product) {
+    // Mock constants for missing API data (colors, sizes, details)
+    const staticColors = [0, 1, 2];
+    const staticSizes = [38, 39, 40, 41, 42, 43, 44, 45, 46, 47];
+    const staticDetails = [
+        "This product is excluded from all promotional offers and discounts.",
+        "Sustainable materials used in production.",
+        "Premium quality comfort and durability."
+    ];
+
+    if (isLoading) {
         return (
-            <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
-                <h1 className="text-2xl font-bold mb-4">Product Not Found</h1>
-                <Button asChild variant="outline">
+            <div className="min-h-[80vh] flex items-center justify-center">
+                <Loader2 className="w-10 h-10 animate-spin text-kicks-blue" />
+            </div>
+        );
+    }
+
+    if (isError || !product) {
+        return (
+            <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 text-center">
+                <ErrorState
+                    message={isError ? "Failed to load product." : "Product not found."}
+                    onRetry={refetch}
+                />
+                <Button asChild variant="outline" className="mt-6">
                     <Link href="/">Back to Home</Link>
                 </Button>
             </div>
@@ -37,22 +60,23 @@ export default function ProductDetailPage({
         setShowLoginModal(true);
     };
 
+    // Prepare carousel products (e.g., first 4 from all products)
+    const carouselProducts = allProducts?.slice(0, 4) || [];
+
     return (
         <main className="pt-32 md:pt-[160px] pb-10 md:pb-24">
             <CommonWrapper>
                 <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8 lg:gap-14 mb-20">
 
-                    <ProductGallery images={product.images} productName={product.name} />
+                    <ProductGallery images={product.images} productName={product.title} />
 
                     <div className="flex flex-col pt-0 lg:pt-4">
-                        {product.isNew && (
-                            <span className="bg-kicks-blue text-white text-[11px] font-bold px-3.5 py-1.5 rounded-lg uppercase w-max mb-6 tracking-wider">
-                                New Release
-                            </span>
-                        )}
+                        <span className="bg-kicks-blue text-white text-[11px] font-bold px-3.5 py-1.5 rounded-lg uppercase w-max mb-6 tracking-wider">
+                            New Release
+                        </span>
 
                         <h1 className="font-['Rubik',sans-serif] font-semibold text-[32px] leading-[100%] tracking-[0%] text-kicks-dark mb-2 uppercase">
-                            {product.name}
+                            {product.title}
                         </h1>
 
                         <p className="font-['Rubik',sans-serif] font-semibold text-[24px] leading-[100%] tracking-[0%] text-[#4A69E2] mb-10">
@@ -62,7 +86,7 @@ export default function ProductDetailPage({
                         <div className="mb-8">
                             <p className="font-['Rubik',sans-serif] font-semibold text-[16px] leading-[100%] tracking-[0%] uppercase text-kicks-dark mb-4">Color</p>
                             <div className="flex gap-3">
-                                {product.colors.map((color, index) => (
+                                {staticColors.map((_: number, index: number) => (
                                     <button
                                         key={index}
                                         onClick={() => setSelectedColor(index)}
@@ -87,7 +111,7 @@ export default function ProductDetailPage({
                                 <button className="text-[11px] font-bold text-kicks-dark uppercase underline underline-offset-4 hover:text-kicks-blue transition-colors cursor-pointer">Size Chart</button>
                             </div>
                             <div className="grid grid-cols-5 sm:grid-cols-6 lg:grid-cols-8 gap-2">
-                                {product.sizes.map((size, index) => (
+                                {staticSizes.map((size: number, index: number) => (
                                     <button
                                         key={size}
                                         className={`h-11 rounded-xl text-sm font-bold transition-all border outline-none cursor-pointer ${index === 0
@@ -124,7 +148,7 @@ export default function ProductDetailPage({
                             <p className="font-['Rubik',sans-serif] font-semibold text-[16px] leading-[100%] tracking-[0%] uppercase text-kicks-dark mb-2">About the Product</p>
                             <p className="font-['Open_Sans',sans-serif] font-normal text-[16px] leading-[100%] tracking-[0%] text-kicks-gray mb-6">{product.description}</p>
                             <ul className="list-none space-y-4">
-                                {product.details.map((detail, index) => (
+                                {staticDetails.map((detail: string, index: number) => (
                                     <li key={index} className="font-['Open_Sans',sans-serif] font-normal text-[16px] leading-[100%] tracking-[0%] text-kicks-gray flex items-start gap-2">
                                         <span className="mt-1.5 size-1.5 rounded-full bg-kicks-gray shrink-0" />
                                         {detail}

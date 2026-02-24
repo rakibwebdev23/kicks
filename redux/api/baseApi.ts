@@ -1,0 +1,10 @@
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://api.escuelajs.co/api/v1";
+
+export const baseApi = createApi({
+  reducerPath: "api",
+  baseQuery: fetchBaseQuery({ baseUrl }),
+  tagTypes: ["Products", "Categories"],
+  endpoints: () => ({}),
+});

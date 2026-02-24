@@ -7,53 +7,13 @@ import { Heart, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
 import CommonWrapper from "@/common/CommonWrapper";
 import { Button } from "@/components/ui/button";
 import ProductCarousel from "@/components/ProductCarousel";
-
-const cartCarouselProducts = [
-    {
-        id: 1,
-        name: "ADIDAS 4DFWD X PARLEY RUNNING SHOES",
-        price: 125,
-        image: "/images/shoe-1.png",
-        isNew: true,
-    },
-    {
-        id: 2,
-        name: "ADIDAS 4DFWD X PARLEY RUNNING SHOES",
-        price: 125,
-        image: "/images/shoe-2.png",
-        isNew: true,
-    },
-    {
-        id: 3,
-        name: "ADIDAS 4DFWD X PARLEY RUNNING SHOES",
-        price: 125,
-        image: "/images/shoe-3.png",
-        isNew: true,
-    },
-    {
-        id: 4,
-        name: "ADIDAS 4DFWD X PARLEY RUNNING SHOES",
-        price: 125,
-        image: "/images/shoe-4.png",
-        isNew: true,
-    },
-    {
-        id: 5,
-        name: "ADIDAS 4DFWD X PARLEY RUNNING SHOES",
-        price: 125,
-        image: "/images/shoe-1.png",
-        isNew: true,
-    },
-    {
-        id: 6,
-        name: "ADIDAS 4DFWD X PARLEY RUNNING SHOES",
-        price: 125,
-        image: "/images/shoe-2.png",
-        isNew: true,
-    },
-];
+import { useGetAllProductsQuery } from "@/redux/api/api";
 
 export default function CartPage() {
+    const { data: products } = useGetAllProductsQuery();
+
+    // Prepare carousel products (e.g., first 4 valid ones)
+    const carouselProducts = products?.slice(0, 4) || [];
     return (
         <main className="min-h-screen pt-24 md:pt-[140px] pb-10 md:pb-24">
             <CommonWrapper>
@@ -97,7 +57,7 @@ export default function CartPage() {
                                                 DROPSET TRAINER SHOES
                                             </h3>
                                             <p className="text-[#70706E] text-[16px] font-open-sans mt-2">
-                                                Men's Road Running Shoes
+                                                Men&apos;s Road Running Shoes
                                             </p>
                                             <p className="text-[#70706E] text-[16px] font-open-sans">
                                                 Enamel Blue/ University White
@@ -179,7 +139,7 @@ export default function CartPage() {
                 <div className="mt-20 md:mt-32">
                     <ProductCarousel
                         title="You may also like"
-                        products={cartCarouselProducts}
+                        products={carouselProducts}
                     />
                 </div>
             </CommonWrapper>
