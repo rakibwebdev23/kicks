@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Search, Menu, X } from "lucide-react";
@@ -13,15 +13,32 @@ import { useAppSelector } from "@/redux/store/hook";
 
 export default function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const cartItems = useAppSelector((state) => state.cart.items);
     const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 0) {
+                setScrolled(true);
+            } else {
+                setScrolled(false);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
     return (
-        <div className="fixed top-0 left-0 w-full z-50 pt-8">
+        <div className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? "pt-0" : "pt-8"}`}>
             <CommonWrapper>
                 <nav
                     id="navbar"
-                    className="bg-white rounded-[24px] px-4 py-4 md:rounded-3xl md:px-8 md:py-8"
+                    className={`bg-white transition-all duration-300 px-4 py-4 md:px-8 ${scrolled
+                        ? "rounded-none md:rounded-b-3xl md:py-4 shadow-sm"
+                        : "rounded-[24px] md:rounded-3xl md:py-8"
+                        }`}
                 >
                     <div className="relative flex items-center justify-between">
                         <div className="flex items-center">
