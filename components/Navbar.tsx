@@ -112,7 +112,7 @@ export default function Navbar() {
                                     variant="ghost"
                                     size="icon"
                                     aria-label="Shopping cart"
-                                    className="relative rounded-full hover:bg-gray-100"
+                                    className="relative rounded-full bg-[#FFA52F] hover:bg-gray-100"
                                 >
                                     <Badge className="w-8 h-8 p-2.5 gap-2.5 flex items-center justify-center bg-kicks-orange text-kicks-dark text-[16px] font-bold border-0 hover:bg-kicks-orange rounded-full">
                                         {cartCount}

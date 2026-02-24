@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
+import { Heart, Trash2 } from "lucide-react";
 
 import CommonWrapper from "@/common/CommonWrapper";
 import { Button } from "@/components/ui/button";
@@ -33,14 +33,14 @@ export default function CartPage() {
     return (
         <main className="min-h-screen pt-24 md:pt-[140px] pb-10 md:pb-24">
             <CommonWrapper>
-                <div className="mb-10">
-                    <h1 className="text-[28px] md:text-[36px] font-semibold text-[#232321] font-heading mb-2">
+                <div className="mb-10 mt-6">
+                    <h1 className="text-[28px] md:text-[36px] font-semibold text-kicks-dark font-heading mb-2">
                         Saving to celebrate
                     </h1>
-                    <p className="text-[#232321] text-[14px] md:text-[16px] font-medium font-open-sans">
+                    <p className="text-kicks-dark text-[14px] md:text-[16px] font-medium font-open-sans">
                         Enjoy up to 60% off thousands of styles during the End of Year sale - while supplies last. No code needed.
                     </p>
-                    <p className="text-[#232321] text-[14px] md:text-[16px] font-medium font-open-sans mt-1">
+                    <p className="text-kicks-dark text-[14px] md:text-[16px] font-medium font-open-sans mt-1">
                         <Link href="#" className="underline">Join us</Link> or <Link href="#" className="underline">Sign-in</Link>
                     </p>
                 </div>
@@ -48,10 +48,10 @@ export default function CartPage() {
                 <div className="flex flex-col lg:flex-row gap-10">
                     <div className="w-full lg:w-[65%]">
                         <div className="bg-white rounded-[24px] p-6 md:p-8">
-                            <h2 className="text-[24px] md:text-[32px] font-semibold text-[#232321] font-heading mb-2">
+                            <h2 className="text-[24px] md:text-[32px] font-semibold text-kicks-dark font-heading mb-2">
                                 Your Bag
                             </h2>
-                            <p className="text-[#70706E] text-[14px] md:text-[16px] font-open-sans mb-8">
+                            <p className="text-kicks-dark text-[14px] md:text-[16px] font-open-sans mb-8">
                                 {cartItems.length === 0
                                     ? "Your bag is empty."
                                     : "Items in your bag not reserved- check out now to make them yours."}
@@ -61,7 +61,7 @@ export default function CartPage() {
                                 {cartItems.map((item: CartItem) => (
                                     <div key={`${item.id}-${item.size}-${item.color}`} className="flex flex-col sm:row gap-6">
                                         <div className="flex flex-col sm:flex-row gap-6">
-                                            <div className="w-full sm:w-[200px] aspect-square bg-[#F4F5F4] rounded-[16px] flex items-center justify-center relative flex-shrink-0">
+                                            <div className="w-full sm:w-[200px] aspect-square bg-[#F4F5F4] rounded-2xl flex items-center justify-center relative shrink-0">
                                                 <Image
                                                     src={item.image}
                                                     alt={item.title}
@@ -74,21 +74,21 @@ export default function CartPage() {
                                             <div className="flex-1 flex flex-col justify-between">
                                                 <div className="flex justify-between items-start">
                                                     <div>
-                                                        <h3 className="text-[20px] md:text-[24px] font-semibold text-[#232321] font-heading uppercase leading-tight">
+                                                        <h3 className="text-[20px] md:text-[24px] font-semibold text-kicks-dark font-heading uppercase leading-tight">
                                                             {item.title}
                                                         </h3>
-                                                        <p className="text-[#70706E] text-[16px] font-open-sans mt-2">
+                                                        <p className="text-kicks-dark text-[16px] font-open-sans mt-2">
                                                             Men&apos;s Road Running Shoes
                                                         </p>
-                                                        <p className="text-[#70706E] text-[16px] font-open-sans">
+                                                        <p className="text-kicks-dark text-[16px] font-open-sans">
                                                             Color Category: {item.color}
                                                         </p>
 
                                                         <div className="flex items-center gap-6 mt-4">
-                                                            <div className="flex items-center gap-2 text-[16px] font-semibold text-[#232321]">
+                                                            <div className="flex items-center gap-2 text-[16px] font-semibold text-kicks-dark">
                                                                 Size {item.size}
                                                             </div>
-                                                            <div className="flex items-center gap-2 text-[16px] font-semibold text-[#232321]">
+                                                            <div className="flex items-center gap-2 text-[16px] font-semibold text-kicks-dark">
                                                                 Quantity {item.quantity}
                                                                 <div className="flex gap-1 ml-2">
                                                                     <button
@@ -104,18 +104,18 @@ export default function CartPage() {
                                                         </div>
                                                     </div>
 
-                                                    <div className="text-[20px] md:text-[24px] font-semibold text-[#4A69E2] font-heading">
+                                                    <div className="text-[20px] md:text-[24px] font-semibold text-kicks-blue font-heading">
                                                         ${(item.price * item.quantity).toFixed(2)}
                                                     </div>
                                                 </div>
 
                                                 <div className="flex gap-4 mt-6">
-                                                    <button className="text-[#232321] hover:text-[#4A69E2] transition-colors cursor-pointer border-0 bg-transparent">
+                                                    <button className="text-kicks-dark hover:text-kicks-blue transition-colors cursor-pointer border-0 bg-transparent">
                                                         <Heart className="w-6 h-6" />
                                                     </button>
                                                     <button
                                                         onClick={() => dispatch(removeFromCart(item))}
-                                                        className="text-[#232321] hover:text-red-500 transition-colors cursor-pointer border-0 bg-transparent"
+                                                        className="text-kicks-dark hover:text-red-500 transition-colors cursor-pointer border-0 bg-transparent"
                                                     >
                                                         <Trash2 className="w-6 h-6" />
                                                     </button>
@@ -130,11 +130,11 @@ export default function CartPage() {
 
                     <div className="w-full lg:w-[35%]">
                         <div className="p-6 md:p-8">
-                            <h2 className="text-[24px] md:text-[32px] font-semibold text-[#232321] font-heading mb-6">
+                            <h2 className="text-[24px] md:text-[32px] font-semibold text-kicks-dark font-heading mb-6">
                                 Order Summary
                             </h2>
 
-                            <div className="flex flex-col gap-4 text-[16px] font-open-sans font-medium text-[#232321] mb-6">
+                            <div className="flex flex-col gap-4 text-[16px] font-open-sans font-medium text-kicks-dark mb-6">
                                 <div className="flex justify-between uppercase">
                                     <span>{cartItems.length} ITEM{cartItems.length !== 1 ? 'S' : ''}</span>
                                     <span>${subtotal.toFixed(2)}</span>
@@ -149,7 +149,7 @@ export default function CartPage() {
                                 </div>
                             </div>
 
-                            <div className="flex justify-between items-center text-[20px] md:text-[24px] font-semibold text-[#232321] font-heading mb-8 uppercase">
+                            <div className="flex justify-between items-center text-[20px] md:text-[24px] font-semibold text-kicks-dark font-heading mb-8 uppercase">
                                 <span>Total</span>
                                 <span>${total.toFixed(2)}</span>
                             </div>
@@ -157,14 +157,14 @@ export default function CartPage() {
                             <Button
                                 onClick={handleCheckout}
                                 disabled={cartItems.length === 0}
-                                className="w-full h-[56px] md:h-[64px] bg-[#232321] hover:bg-[#333] text-white rounded-[8px] flex items-center justify-center transition-colors border-0 mb-4 cursor-pointer"
+                                className="w-full h-[56px] md:h-[64px] bg-kicks-dark hover:bg-[#333] text-white rounded-lg flex items-center justify-center transition-colors border-0 mb-4 cursor-pointer"
                             >
                                 <span className="text-[14px] md:text-[16px] font-semibold uppercase font-['Rubik',sans-serif] tracking-wider">
                                     CHECKOUT
                                 </span>
                             </Button>
 
-                            <Link href="#" className="text-[16px] font-semibold text-[#232321] underline font-open-sans inline-block">
+                            <Link href="#" className="text-[16px] font-semibold text-kicks-dark underline font-open-sans inline-block">
                                 Use a promo code
                             </Link>
                         </div>
